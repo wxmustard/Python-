@@ -45,3 +45,35 @@
 
 > 在运行`.py`文件时会自动创建相应的`.pyc`文件，`.pyc`文件中包含目标代码，这个目标代码是一种`Python`专用的语言，计算机可以高效运行，并且`Python`程序是在虚拟机上运行的。
 
+* 输入字符串
+
+  ```python
+  name = input('')
+  # 函数input返回用户输入的字符串，name最终指向用户输入的字符串
+  # 如果想获得数字，需要自行将接受的字符串转换为数字类型，使用int()，float()都可以
+  ```
+
+  ​
+
+![](https://vgy.me/fmLgmU.png)
+
+* 在屏幕上打印字符串
+
+  ```python
+  print('hello',end='')
+  print('world')
+  # print打印完自动在指定内容后添加一个换行符\n
+  # 如果想在同一行输出，需要使用上述语句
+  ```
+
+* 在`python`中使用#注释
+
+* 快捷键
+
+|      快捷键       |     动作     |
+| :------------: | :--------: |
+|     Ctrl+O     | open file  |
+| Ctrl+(Shift)+Z |     撤销     |
+|       F5       | run moudle |
+|     Ctrl+N     |  new file  |
+
