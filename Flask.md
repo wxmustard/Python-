@@ -111,3 +111,11 @@ with app.test_request_context():
 # flask中的test_request_context()方法是为了告诉解释器在其作用域中的代码模拟一个HTTP请求上下文
 ```
 
+## Jinja2模板
+
+```html
+{{输出变量名或表达式}}
+{%逻辑控制,如循环迭代等%}
+{#注释#}
+```
+
