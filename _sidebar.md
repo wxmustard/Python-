@@ -22,6 +22,8 @@
 
  - [Python-web:Flask](Flask.md)
 
+ - [Python-web:Django](Django.md)
+
  - [Q&A](Q&A.md)
 
    ​
