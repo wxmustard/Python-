@@ -33,6 +33,17 @@ class buckets(models.Model):
     create_id = models.CharField(max_length =8)
     create_at = models.DateTimeField(auto_now_add= True)
     objects = models.Manager() 
+class users(models.Model):
+    # 参数中包含max_length为可变长度（varchar类型），没有参数的为定长（char类型）
+    id = models.AutoField(primary_key = True)
+    access_key = models.CharField(max_length = 64)
+    access_secret = models.CharField(max_length = 64)
+    create_id = models.CharField(max_length =8)
+    # auto_now 自动创建---无论添加或修改，都是当前操作的时间 ,auto_now_add 自动创建---永远是创建时的时间
+    create_at = models.DateTimeField(auto_now_add= True)
+    # null=True数据库中的字段允许为空，但是django会自动检测数据不允许为空值，需要添加blank=True才可以
+    update_at = models.DateTimeField(auto_now=True,null=True,blank=True)
+    objects = models.Manager() 
 ```
 
 - 将新建的`models`同步至数据库
