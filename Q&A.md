@@ -8,17 +8,28 @@
 
 - 检查是否已经下载第三方库
 
-  ```bash
+```bash
   sudo pip3 list
   sudo pip3 install ***
-  ```
+```
 
 - 使用`virtualenv`环境
 
-  ```bash
+```bash
   virtualenv venv
   source venv/bin/activate
-  ```
+```
 
-  ​
+  
+
+## 依赖文档
+
+- Python项目中必须包含一个 requirements.txt 文件，用于记录所有依赖包及其精确的版本号。以便新环境部署。
+
+```cmd
+pip freeze > requirements.txt # 生成requirements.txt
+pip install -r requirements.txt # 从requirements.txt安装依赖
+```
+
+
 
