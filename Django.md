@@ -39,6 +39,8 @@ class users(models.Model):
     access_key = models.CharField(max_length = 64)
     access_secret = models.CharField(max_length = 64)
     create_id = models.CharField(max_length =8)
+    # 如果在数据中已有数据的基础上需要更改数据库设计，需要先清空表中数据，并为新增字段添加默认值
+    server_address = models.CharField(max_length = 64,default='')
     # auto_now 自动创建---无论添加或修改，都是当前操作的时间 ,auto_now_add 自动创建---永远是创建时的时间
     create_at = models.DateTimeField(auto_now_add= True)
     # null=True数据库中的字段允许为空，但是django会自动检测数据不允许为空值，需要添加blank=True才可以
