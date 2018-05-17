@@ -1,5 +1,7 @@
 # 企业级开发框架-Django
 
+> 使用Django Rest framework框架
+
 ## 数据库操作
 
 - 配置数据库文件
@@ -109,7 +111,9 @@ user.access_secret = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
 user.save()
 ```
 
-## 返回状态码
+## 响应头Response
+
+### 返回状态码
 
 - 使用方法：
 
@@ -171,6 +175,17 @@ HTTP_504_GATEWAY_TIMEOUT = 504
 HTTP_505_HTTP_VERSION_NOT_SUPPORTED = 505
 HTTP_507_INSUFFICIENT_STORAGE = 507
 HTTP_511_NETWORK_AUTHENTICATION_REQUIRED = 511
+```
+
+### 自定义Response响应头
+
+> 参考资料： http://www.django-rest-framework.org/api-guide/responses/#creating-responses
+
+```python
+# views.py 文件中进行自定义Response
+    response = Response()
+    response['server'] = 'SHU'
+return response
 ```
 
 
