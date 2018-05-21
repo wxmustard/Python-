@@ -190,3 +190,14 @@ return response
 
 
 
+## Q&A
+
+### 字典排序
+
+- 按照字典中的`Key`排序
+
+```python
+sorted(dict.keys()) # key升序排列
+sorted(dict.keys(),reverse=True) # key降序排列
+```
+
