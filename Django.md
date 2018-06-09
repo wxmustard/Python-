@@ -184,7 +184,9 @@ HTTP_511_NETWORK_AUTHENTICATION_REQUIRED = 511
 ```python
 # views.py 文件中进行自定义Response
     response = Response()
+    # response = Response(status = status.HTTP_200_OK)
     response['server'] = 'SHU'
+    response1['content_type'] = 'application/octet-stream'
 return response
 ```
 
