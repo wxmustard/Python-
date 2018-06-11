@@ -1,5 +1,100 @@
 # 企业级开发框架-Django
 
+## 开发环境
+
+>在开发Python应用程序的时候，系统安装的Python3只有一个版本：3.4。所有第三方的包都会被`pip`安装到Python3的`site-packages`目录下。
+>
+>如果我们要同时开发多个应用程序，那这些应用程序都会共用一个Python，就是安装在系统的Python 3。如果应用A需要jinja 2.7，而应用B需要jinja 2.6怎么办？
+>
+>这种情况下，每个应用可能需要各自拥有一套“独立”的Python运行环境。virtualenv就是用来为一个应用创建一套“隔离”的Python运行环境.
+
+- 安装`virtualenv`
+
+  ```bash
+  sudo pip install virtualenv virtualenvwrapper
+  ```
+
+- 更改`.zshrc`
+
+  ```bash
+  export WORKON_HOME=/home/mustard/.virtualenvs
+  export PROJECT_HOME=/home/mustard/workspace
+  export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+  source /usr/local/bin/virtualenvwrapper.sh
+  # 使更改生效
+  source .zshrc
+  ```
+
+- 创建一个新的项目
+
+  ```bash
+  # 创建项目目录
+  mkdir myproject
+  cd myproject/
+  # 创建一个独立的Python运行环境，命名为venv
+  virtualenv --no-site-packages venv
+  # virtualenv命令是创建一个独立的Python运行环境
+  # --no-site-packages参数是创建一个干净的不包含第三方包的Python运行环境
+  
+  #进入venv环境
+  source venv/bin/activate
+  # 此时可以使用pip install等命令了
+  ```
+
+## Django
+
+- 安装`bpython`，添加自动补全功能
+
+  ```python
+  # 进入venv环境后
+  # 1.升级pip
+  pip install --upgrade pip
+  # 2.安装Django
+  pip install Django
+  # 3.安装bpython
+  pip install bpython
+  # 进入bpython，查询django版本
+  >>> import django
+  >>> django.VERSION
+  (1, 11, 7, 'final', 0)
+  ```
+
+
+### `Django`基本命令
+
+- ```bash
+  # 创建新项目 mysite
+  django-admin startproject mysite
+  # 创建新应用（app），learn
+  python manage.py startapp learn
+  # 将新定义的app加到settings.py中的INSTALL_APPS中
+  # 修改mysite/mysite/settings.py
+  INSTALLED_APPS = (
+      'django.contrib.admin',
+      'django.contrib.auth',
+      'django.contrib.contenttypes',
+      'django.contrib.sessions',
+      'django.contrib.messages',
+      'django.contrib.staticfiles',
+   
+      'learn',
+  )
+  # 新建的 app 如果不加到 INSTALL_APPS 中的话, django 就不能自动找到app中的模板文件(app-name/templates/下的文件)和静态文件(app-name/static/中的文件)
+  ```
+
+- `requirements.txt`
+
+  > python项目中必须包含一个 requirements.txt 文件，用于记录所有依赖包及其精确的版本号。以便新环境部署。
+
+  ```bash
+  # 生成requirements.txt
+  pip3 freeze >requirements.txt
+  # 部署环境
+  pip3 install -r requirements.txt
+  ```
+
+
+
 > 使用Django Rest framework框架
 
 ## 数据库操作
