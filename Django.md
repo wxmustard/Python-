@@ -95,9 +95,55 @@
 
 
 
-> 使用Django Rest framework框架
+##  使用Django Rest framework框架
 
-## 数据库操作
+### 基础设置
+
+- 下载框架
+
+```bash
+pip3 install djangorestframework
+pip3 install pygments
+```
+
+- 基础配置
+
+  - 将app添加至项目中
+
+  ```python
+  # 将'vm.apps.VmConfig'添加到kvm/settings.py中
+  INSTALLED_APPS = [
+      'vm.apps.VmConfig',
+  ]
+  ```
+
+  - 修改项目的url
+
+  ```python
+  # 打开kvm/urls.py,将以下语句添加进去
+  # 提示：vm/urls.py需要自行创建
+  from django.conf.urls import url , include
+  urlpatterns = [
+      path('admin/', admin.site.urls),
+      url(r'^',include('vm.urls'))
+  ]
+  ```
+
+  - 创建`vm/urls.py`
+
+  ```python
+  # url是预先设计好的
+  from django.conf.urls import url
+  from vm import views
+  from rest_framework.urlpatterns import format_suffix_patterns
+  urlpatterns = [
+      url(r'^v1/vps/$',views.kvm_list),
+      url(r'^v1/vps/kvmname/(?P<name>[a-zA-Z0-9]+)/$',views.kvm),
+  ]
+  urlpatterns = format_suffix_patterns(urlpatterns)
+  ```
+
+### 数据库操作
 
 - 配置数据库文件
 
@@ -206,9 +252,9 @@ user.access_secret = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
 user.save()
 ```
 
-## 响应头Response
+### 响应头Response
 
-### 返回状态码
+#### 返回状态码
 
 - 使用方法：
 
@@ -272,7 +318,7 @@ HTTP_507_INSUFFICIENT_STORAGE = 507
 HTTP_511_NETWORK_AUTHENTICATION_REQUIRED = 511
 ```
 
-### 自定义Response响应头
+#### 自定义Response响应头
 
 > 参考资料： http://www.django-rest-framework.org/api-guide/responses/#creating-responses
 
