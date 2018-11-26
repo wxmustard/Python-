@@ -14,6 +14,24 @@
 - 用于存储键值对，效率极高,可以添加、删除、修改键值对。如`color={'red':1,'blue':2}`
 - 字典中的键是独一无二的，即使在同一个字典里，也不允许任何两个键值对相同
 
+```python
+# 遍历字典的key&value
+out = []
+for key in data.keys():
+    str1 = key + "=" + data[key]
+    out.append(str1)
+print('&'.join(out))
+out1 = []
+for key,value in data.items():
+#for (key,value) in data.items():
+    str2 = key + "=" + value
+    out1.append(str2)
+print('&'.join(out1))
+# 遍历字典的value
+for value in data.values():
+    print(value)
+```
+
 ### 在字典中嵌套列表
 ```python
 import json
