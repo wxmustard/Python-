@@ -1,4 +1,5 @@
- - [编程简介](Chapter1.md)
+ - help
+	- [编程简介](Chapter1.md)
 
  - [算术、字符串与变量](Chapter2.md)
 
