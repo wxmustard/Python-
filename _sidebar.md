@@ -24,6 +24,8 @@
 
  - [Python-web:Django](Django.md)
 
+ - [LDAP-python](ldap.md)
+ 
  - [Q&A](Q&A.md)
 
    ​
