@@ -9,3 +9,8 @@ sudo python -m pip install python-ldap
 # python3.7 -> ../Cellar/python/3.7.1/bin/python3.7
 sudo pip3.7 install python-ldap
 ```
+
+## 使用
+![官方文档](http://www.python-ldap.org/en/latest/resources.html)
+![第三方文档1](https://hub.packtpub.com/python-ldap-applications-part-1-installing-and-configuring-python-ldap-library-and-bin/#)
+![第三方文档2](https://hub.packtpub.com/configuring-and-securing-python-ldap-applications-part-2/)
