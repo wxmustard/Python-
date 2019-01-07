@@ -79,3 +79,17 @@ class LDAPSearchResult:
         ldif_out = ldif.LDIFWriter(out)
         ldif_out.unparse(self.dn, self.attrs)
         return out.getvalue()
+    def get_search_results(results):
+        """
+        Given a set of results, return a list of LDAPSearchResult  objects.
+        """
+        res = []
+        if type(results) == tuple and len(results) == 2 :
+            (code, arr) = results
+        elif type(results) == list:
+            arr = results
+        if len(results) == 0:
+            return res
+        for item in arr:
+            res.append( LDAPSearchResult(item) )
+        return res
