@@ -47,10 +47,11 @@ res = get_search_results(attrset)
 print(res[0].get_dn())
 print(res[0].get_attr_values('userpassword'))
 try:
-    bind = l.simple_bind_s(res[0].get_dn(), '123456')
+    bind = l.simple_bind_s(res[0].get_dn(), '123451')
     print(bind)
 except ldap.LDAPError as e:
     print(e)
+
 def hash_md5(data):         
     md = hashlib.md5()
     md.update(str(data).encode(encoding='UTF-8'))

@@ -1,4 +1,5 @@
 #coding: utf-8
+
 import  ldap
 '''
 实现LDAP用户登录验证，首先获取用户的dn，然后再验证用户名和密码
