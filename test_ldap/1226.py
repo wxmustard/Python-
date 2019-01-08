@@ -26,8 +26,8 @@ filter = 'uid=xwang'
 attrset = l.search_s(base_dn, ldap.SCOPE_SUBTREE, filter)
 
 def get_search_results(results):
-    """Given a set of results, return a list of LDAPSearchResult
-    objects.
+    """
+    Given a set of results, return a list of LDAPSearchResult  objects.
     """
     res = []
     if type(results) == tuple and len(results) == 2 :
@@ -47,11 +47,10 @@ res = get_search_results(attrset)
 print(res[0].get_dn())
 print(res[0].get_attr_values('userpassword'))
 try:
-    bind = l.simple_bind_s(res[0].get_dn(), '123451')
+    bind = l.simple_bind_s(res[0].get_dn(), '123456')
     print(bind)
 except ldap.LDAPError as e:
     print(e)
-
 def hash_md5(data):         
     md = hashlib.md5()
     md.update(str(data).encode(encoding='UTF-8'))
