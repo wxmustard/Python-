@@ -344,3 +344,30 @@ sorted(dict.keys()) # key升序排列
 sorted(dict.keys(),reverse=True) # key降序排列
 ```
 
+### Django 启动失败
+```bash
+# No module named _sqlite3
+yum install sqlite*
+yum install sqlite-devel 
+cd python-3.7
+./configure
+make && make install
+
+# sudo: pip3: command not found
+sudo ln -s /usr/local/bin/pip3 /usr/bin/pip3
+
+# SQLite 3.8.3 or later is required (found 3.7.17)
+# 原因： Django版本过高，不兼容，采取降级操作
+pip uninstall django
+pip install django==2.1.8
+# 如果是用pip3进行安装的，则卸载时应使用pip3
+
+# pip3 install xxx, error: require TLS/SSL
+# 原因：缺少SSL模块
+yum install openssl-devel
+# 重新编译python
+cd python-3.7
+./configure --with-ssl
+make
+make install
+```
