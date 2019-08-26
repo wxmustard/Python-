@@ -251,7 +251,43 @@ user.access_key = 'wxmust'
 user.access_secret = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
 user.save()
 ```
-
+### Admin 后台管理界面
+#### 创建admin用户
+```bash
+python manage.py createsuperuser
+# 访问127.0.0.1/admin
+```
+#### 添加数据库model
+- 仅添加model
+```bash
+# project/app/admin.py
+from monitor.models import Queue
+admin.site.register(Queue,QueueAdmin)
+# project/app/models.py
+from __future__ import unicode_literals
+from django.db import models
+from django.utils.encoding import python_2_unicode_compatible
+# Create your models here.
+@python_2_unicode_compatible # 兼容python2、3
+class buckets(models.Model):
+    id = models.AutoField(primary_key = True)
+    bucket_name = models.CharField(max_length = 32)
+    create_id = models.CharField(max_length =8)
+    create_at = models.DateTimeField(auto_now_add= True)
+    objects = models.Manager() 
+    # def __str__()作用：在界面上显示字段名称
+    def __str__(self):# 在Python3中用 __str__ 代替 __unicode__
+        return self.bucket_name
+```
+- 显示models中的其他字段
+```bash
+# project/app/admin.py
+from monitor.models import Queue
+admin.site.register(Queue,QueueAdmin)
+class bucketsAdmin(admin.ModelAdmin):
+    list_display = ('bucket_name', 'create_id', 'create_at',)
+admin.site.register(Queue,bucketsAdmin)
+```
 ### 响应头Response
 
 #### 返回状态码
