@@ -261,8 +261,8 @@ python manage.py createsuperuser
 - 仅添加model
 ```bash
 # project/app/admin.py
-from monitor.models import Queue
-admin.site.register(Queue,QueueAdmin)
+from bucket.models import Bucket
+admin.site.register(Bucket)
 # project/app/models.py
 from __future__ import unicode_literals
 from django.db import models
@@ -282,11 +282,11 @@ class buckets(models.Model):
 - 显示models中的其他字段
 ```bash
 # project/app/admin.py
-from monitor.models import Queue
-admin.site.register(Queue,QueueAdmin)
+from bucket.models import QBucketueue
+
 class bucketsAdmin(admin.ModelAdmin):
     list_display = ('bucket_name', 'create_id', 'create_at',)
-admin.site.register(Queue,bucketsAdmin)
+admin.site.register(Bucket,bucketsAdmin)
 ```
 ### 响应头Response
 
