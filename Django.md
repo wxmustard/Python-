@@ -266,7 +266,9 @@ user.set_password('new admin password')
 user.save()
 ```
 #### 添加数据库model
+
 - 仅添加model
+
 ```bash
 # project/app/admin.py
 from bucket.models import Bucket
@@ -287,7 +289,10 @@ class buckets(models.Model):
     def __str__(self):# 在Python3中用 __str__ 代替 __unicode__
         return self.bucket_name
 ```
+
 - 显示models中的其他字段
+
+
 ```bash
 # project/app/admin.py
 from bucket.models import QBucketueue
