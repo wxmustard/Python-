@@ -257,6 +257,14 @@ user.save()
 python manage.py createsuperuser
 # 访问127.0.0.1/admin
 ```
+#### 遗忘admin密码
+```bash
+python manage.py shell
+from django.contrib.auth.models import User 
+user = User.objects.get(username='admin') # username 为后台登录的用户名
+user.set_password('new admin password') 
+user.save()
+```
 #### 添加数据库model
 - 仅添加model
 ```bash
@@ -286,8 +294,11 @@ from bucket.models import QBucketueue
 
 class bucketsAdmin(admin.ModelAdmin):
     list_display = ('bucket_name', 'create_id', 'create_at',)
+    # 筛选器 
+    search_fields = ('bucket_name',) # 提供一个搜索框
 admin.site.register(Bucket,bucketsAdmin)
 ```
+
 ### 响应头Response
 
 #### 返回状态码
