@@ -293,7 +293,7 @@ class buckets(models.Model):
 - 显示models中的其他字段
 
 
-```bash
+```python
 # project/app/admin.py
 from bucket.models import QBucketueue
 
@@ -301,6 +301,14 @@ class bucketsAdmin(admin.ModelAdmin):
     list_display = ('bucket_name', 'create_id', 'create_at',)
     # 筛选器 
     search_fields = ('bucket_name',) # 提供一个搜索框
+    def get_readonly_fields(self, request, obj=None):
+        if obj: #This is the case when obj is already created i.e. it's an edit
+            return ['bucket_name', 'create_id']
+        else:
+            self.readonly_fields = []
+        if request.user.is_superuser:  # superuser can edit  
+            self.readonly_fields = []
+        return self.readonly_fields
 admin.site.register(Bucket,bucketsAdmin)
 ```
 
