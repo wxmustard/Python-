@@ -200,6 +200,18 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
+- 更改数据库
+    - 清楚project/app/migrate文件夹下除init以外的所有文件
+    - 确保数据库存在且可以正常连接
+    - 清空数据库中的所有数据表
+      - 可以删除数据库、再创建数据库
+      - drop database test;
+      - create database test;
+    - 重新将models同步至数据库
+      - python manage.py makemigrations
+      - python manage.py migrate
+
+
 ### 数据库的基本操作(`views.py`)
 
 - 增
