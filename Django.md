@@ -323,7 +323,124 @@ class bucketsAdmin(admin.ModelAdmin):
         return self.readonly_fields
 admin.site.register(Bucket,bucketsAdmin)
 ```
+#### 显示on/off标记
+- model.py
+```python
+bucket_name = models.CharField(max_length = 32)
+def status(self):
+        return self.bucket_name != 'None'
+status.boolean = True
+objects = models.Manager()
+```
+- admin.py
+```python
+list_display = ('bucket_name', 'create_id', 'create_at','status',)
+```
+#### 自定义过滤器
+- 设置过滤器
+  - admin.py
+```python
+list_filter = ('bucket_name',)
+```
+- 含有输入框的过滤器
+  - filter.py
+```python
+from django.contrib.admin import ListFilter
+from django.core.exceptions import ImproperlyConfigured
 
+
+class SingleTextInputFilter(ListFilter):
+    """
+    renders filter form with text input and submit button
+    """
+    parameter_name = None
+    template = "textinput_filter.html"
+
+    def __init__(self, request, params, model, model_admin):
+        super(SingleTextInputFilter, self).__init__(
+            request, params, model, model_admin)
+        if self.parameter_name is None:
+            raise ImproperlyConfigured(
+                "The list filter '%s' does not specify "
+                "a 'parameter_name'." % self.__class__.__name__)
+
+        if self.parameter_name in params:
+            value = params.pop(self.parameter_name)
+            self.used_parameters[self.parameter_name] = value
+
+    def value(self):
+        """
+        Returns the value (in string format) provided in the request's
+        query string for this filter, if any. If the value wasn't provided then
+        returns None.
+        """
+        return self.used_parameters.get(self.parameter_name, None)
+
+    def has_output(self):
+        return True
+
+    def expected_parameters(self):
+        """
+        Returns the list of parameter names that are expected from the
+        request's query string and that will be used by this filter.
+        """
+        return [self.parameter_name]
+
+    def choices(self, cl):
+        all_choice = {
+            'selected': self.value() is None,
+            'query_string': cl.get_query_string({}, [self.parameter_name]),
+            'display': ('All'),
+        }
+        return ({
+            'get_query': cl.params,
+            'current_value': self.value(),
+            'all_choice': all_choice,
+            'parameter_name': self.parameter_name
+        }, )
+```
+  - admin.py
+```python
+from monitor.filter import *
+class CatalogAlarmFilter(SingleTextInputFilter):
+    title = 'bucket_name'
+    parameter_name = 'bucket_name'
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(bucket_name=self.value())
+list_filter = [CatalogAlarmFilter,'bucket_name',] #添加输入框
+```
+  - templates/textinput_filter.html
+```python
+{% load i18n %}
+<h3>{% blocktrans with filter_title=title %} By {{ filter_title }} {% endblocktrans %}</h3>
+
+{#i for item, to be short in names#}
+{% with choices.0 as i %}
+<ul>
+    <li>
+        <form method="get">
+            <input type="search" name="{{ i.parameter_name }}" value="{{ i.current_value|default_if_none:"" }}"/>
+
+            {#create hidden inputs to preserve values from other filters and search field#}
+            {% for k, v in i.get_query.items %}
+                {% if not k == i.parameter_name %}
+                    <input type="hidden" name="{{ k }}" value="{{ v }}">
+                {% endif %}
+            {% endfor %}
+            <input type="submit" value="{% trans 'apply' %}">
+        </form>
+    </li>
+
+    {#show "All" link to reset current filter#}
+    <li{% if i.all_choice.selected %} class="selected"{% endif %}>
+        <a href="{{ i.all_choice.query_string|iriencode }}">
+            {{ i.all_choice.display }}
+        </a>
+    </li>
+</ul>
+{% endwith %}
+```
 ### 响应头Response
 
 #### 返回状态码
